@@ -1,0 +1,165 @@
+{
+  "Quality": {
+    "name": "Quality Environment",
+    "pipelinesBuilding": [
+      {
+        "name": "Build Frontend",
+        "url": "https://ci.example.com/build-frontend",
+        "parameters": [
+          { "name": "branch", "type": "string", "required": true },
+          { "name": "nodeVersion", "type": "string", "required": false },
+          { "name": "skipTests", "type": "boolean", "required": false },
+          { "name": "buildTimeout", "type": "number", "required": false }
+        ]
+      },
+      {
+        "name": "Build Backend",
+        "url": "https://ci.example.com/build-backend",
+        "parameters": [
+          { "name": "branch", "type": "string", "required": true },
+          { "name": "javaVersion", "type": "string", "required": false },
+          { "name": "runSecurityScan", "type": "boolean", "required": false },
+          { "name": "environment", "type": "string", "required": true }
+        ]
+      },
+      {
+        "name": "Docker Build",
+        "url": "https://ci.example.com/docker-build",
+        "parameters": [
+          { "name": "imageName", "type": "string", "required": true },
+          { "name": "tag", "type": "string", "required": true },
+          { "name": "registry", "type": "string", "required": false },
+          { "name": "pushToRegistry", "type": "boolean", "required": false }
+        ]
+      },
+      {
+        "name": "Run Tests",
+        "url": "https://ci.example.com/run-tests",
+        "parameters": [
+          { "name": "testType", "type": "string", "required": true },
+          { "name": "coverage", "type": "number", "required": false },
+          { "name": "parallel", "type": "boolean", "required": false }
+        ]
+      },
+      {
+        "name": "Deploy to QA",
+        "url": "https://ci.example.com/deploy-qa",
+        "parameters": [
+          { "name": "version", "type": "string", "required": true },
+          { "name": "replicas", "type": "number", "required": false },
+          { "name": "healthCheck", "type": "boolean", "required": false }
+        ]
+      }
+    ],
+    "pipelinesReverse": [
+      {
+        "name": "Rollback QA",
+        "url": "https://ci.example.com/rollback-qa",
+        "parameters": [
+          { "name": "previousVersion", "type": "string", "required": true },
+          { "name": "forceRollback", "type": "boolean", "required": false }
+        ]
+      },
+      {
+        "name": "Clear Cache",
+        "url": "https://ci.example.com/clear-cache",
+        "parameters": [
+          { "name": "cacheType", "type": "string", "required": true }
+        ]
+      },
+      {
+        "name": "Smoke Tests",
+        "url": "https://ci.example.com/smoke-tests",
+        "parameters": [
+          { "name": "endpoints", "type": "string", "required": false },
+          { "name": "timeout", "type": "number", "required": false }
+        ]
+      }
+    ]
+  },
+  "Production": {
+    "name": "Production Environment",
+    "pipelinesBuilding": [
+      {
+        "name": "Prod Build & Push",
+        "url": "https://ci.example.com/prod-build-push",
+        "parameters": [
+          { "name": "tag", "type": "string", "required": true },
+          { "name": "releaseNotes", "type": "string", "required": false },
+          { "name": "isHotfix", "type": "boolean", "required": false }
+        ]
+      },
+      {
+        "name": "Canary Deploy",
+        "url": "https://ci.example.com/canary-deploy",
+        "parameters": [
+          { "name": "version", "type": "string", "required": true },
+          { "name": "canaryPercentage", "type": "number", "required": true },
+          { "name": "duration", "type": "number", "required": false },
+          { "name": "metrics", "type": "string", "required": false }
+        ]
+      },
+      {
+        "name": "Full Production Deploy",
+        "url": "https://ci.example.com/prod-deploy",
+        "parameters": [
+          { "name": "version", "type": "string", "required": true },
+          { "name": "regions", "type": "string", "required": true },
+          { "name": "replicas", "type": "number", "required": false },
+          { "name": "maintenanceMode", "type": "boolean", "required": false }
+        ]
+      },
+      {
+        "name": "Infrastructure Check",
+        "url": "https://ci.example.com/infra-check",
+        "parameters": [
+          { "name": "checkType", "type": "string", "required": true },
+          { "name": "fixIssues", "type": "boolean", "required": false }
+        ]
+      },
+      {
+        "name": "Database Migration",
+        "url": "https://ci.example.com/db-migration",
+        "parameters": [
+          { "name": "version", "type": "string", "required": true },
+          { "name": "backup", "type": "boolean", "required": true },
+          { "name": "rollbackPoint", "type": "string", "required": false }
+        ]
+      }
+    ],
+    "pipelinesReverse": [
+      {
+        "name": "Emergency Rollback",
+        "url": "https://ci.example.com/emergency-rollback",
+        "parameters": [
+          { "name": "previousVersion", "type": "string", "required": true },
+          { "name": "skipHealthCheck", "type": "boolean", "required": false },
+          { "name": "notifyTeam", "type": "boolean", "required": true }
+        ]
+      },
+      {
+        "name": "Database Rollback",
+        "url": "https://ci.example.com/db-rollback",
+        "parameters": [
+          { "name": "rollbackPoint", "type": "string", "required": true },
+          { "name": "backup", "type": "boolean", "required": true }
+        ]
+      },
+      {
+        "name": "Circuit Breaker Off",
+        "url": "https://ci.example.com/circuit-breaker-off",
+        "parameters": [
+          { "name": "service", "type": "string", "required": true }
+        ]
+      },
+      {
+        "name": "Health Check Reset",
+        "url": "https://ci.example.com/health-reset",
+        "parameters": [
+          { "name": "endpoints", "type": "string", "required": false },
+          { "name": "force", "type": "boolean", "required": false }
+        ]
+      }
+    ]
+  }
+}
